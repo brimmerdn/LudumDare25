@@ -10,10 +10,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.davidb.mygdxgame.MyGdxGame;
 
 public class MainMenu implements Screen{
@@ -26,6 +28,7 @@ public class MainMenu implements Screen{
 	Skin skin;
 	SpriteBatch spriteBatch;
 	TextButton textButton;
+	Label label;
 	
 	public MainMenu(MyGdxGame game){
 		this.game = game;
@@ -40,7 +43,6 @@ public class MainMenu implements Screen{
 		
 		spriteBatch.begin();
 		stage.draw();
-		white.draw(spriteBatch, "MyGdxGame", Gdx.graphics.getWidth()/2 - 15, Gdx.graphics.getHeight()/2 + 100);
 		spriteBatch.end();
 	}
 
@@ -73,11 +75,18 @@ public class MainMenu implements Screen{
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button){
 				System.out.println("up");
 				game.setScreen(new Game(game));
-				
 			}
 		});
 		
+		LabelStyle labelStyle = new LabelStyle(white, Color.WHITE);
+		label = new Label("MyGdxGame", labelStyle);
+		label.setX(0);
+		label.setY(Gdx.graphics.getHeight() / 2 + 100);
+		label.setWidth(width);
+		label.setAlignment(Align.center);
+		
 		stage.addActor(textButton);
+		stage.addActor(label);
 	}
 
 	@Override
@@ -88,6 +97,7 @@ public class MainMenu implements Screen{
 		skin.addRegions(atlas);
 		
 		white = new BitmapFont(Gdx.files.internal("data/whitefont.fnt"), false);
+		
 		black = new BitmapFont(Gdx.files.internal("data/blackfont.fnt"), false);
 	}
 
